@@ -38,7 +38,7 @@ window.onload = function () {
 
 
     // сцена
-    let width = 2;
+    let width = 4;
     const SCENE =  [
       sur.parabcylinder(new Point(0,0,0), width, 3, 1, "#000000"),
     ];
@@ -199,32 +199,28 @@ window.onload = function () {
       let c1 = { r: 0, g: 0, b: 0};
       let c2 = { r: 255, g: 255, b: 255};
       let co = 0;
+      /*
       let lines = 1;
       let double=1;
+      */
       for (let i = 0; i < polygons.length; i++){
           if (co <= length){
-              if (double==1){
+              if (i%2==0){
                 polygons[i].color=c1;
               }
-              else if (double==2){
-                polygons[i].color=c1;
-              }
-              else if(double==3) {
+              else {
                 polygons[i].color=c2;
               }
-              else if(double==4) {
-                polygons[i].color=c2;
-                double=0;
-              }
-              double++;
             }
           else{
                     co = 0;
                     let temp = c1;
                     c1 = c2;
                     c2 = temp;
+                    /*
                     lines=1;
                     double=3;
+                    */
                   }
               co += 1;
             }
