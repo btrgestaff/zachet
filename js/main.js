@@ -36,11 +36,13 @@ window.onload = function () {
     const graph3D = new Graph3D({ WINDOW });
     const ui = new UI({ callbacks: { move, printPoints, printEdges, printPolygons } });
 
+
     // сцена
-    let width = 5;
+    let width = 2;
     const SCENE =  [
-      sur.parabcylinder(new Point(0,0,0), 6, 3, 1, "#000000"),
+      sur.parabcylinder(new Point(0,0,0), width, 3, 1, "#000000"),
     ];
+    let length = SCENE[0].polygons.length/width;
     const LIGHT = new Light(-20, 10, -10, 1000);
 
     let canRotate = false;
@@ -200,26 +202,30 @@ window.onload = function () {
       let lines = 1;
       let double=1;
       for (let i = 0; i < polygons.length; i++){
-          if (co <= 25){
-              if (i%2==0){
+          if (co <= length){
+              if (double==1){
                 polygons[i].color=c1;
               }
-              else {
+              else if (double==2){
+                polygons[i].color=c1;
+              }
+              else if(double==3) {
                 polygons[i].color=c2;
               }
+              else if(double==4) {
+                polygons[i].color=c2;
+                double=0;
+              }
+              double++;
             }
           else{
-                co = 0;
-                if (lines == 2) {
-                  let temp = c1;
-                  c1 = c2;
-                  c2 = temp;
-                  lines=1;
-              }
-                else {
-                  lines++;
-                }
-              }
+                    co = 0;
+                    let temp = c1;
+                    c1 = c2;
+                    c2 = temp;
+                    lines=1;
+                    double=3;
+                  }
               co += 1;
             }
           }
